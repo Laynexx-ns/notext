@@ -1,23 +1,33 @@
 <script setup lang="ts">
-
-import {$} from "execa";
+import Swal from 'sweetalert2';
 import {$fetch} from "ofetch";
 
 const email = ref('');
 const password = ref('');
+const submited = ref(false);
+const isValidated = ref(false);
 
 const submit = async () => {
   try {
-    const resp = await $fetch('./api/user', {
+    const resp = await $fetch('/api/user', {
       method: 'POST',
       body: {
         email: email.value,
         password: password.value,
       },
     });
-    console.log("resp", resp);
-  } catch (error) {
-    console.error("Error during POST request:", error);
+
+    navigateTo('/')
+
+  } catch (err) {
+    console.log(err.response);
+    await Swal.fire({
+      icon: "error",
+      title: err.response.status,
+      text: err.response._data.message,
+      footer: '<a href="#">Why do I have this issue?</a>',
+      confirmButtonText: "Ok, i'll try another data!"
+    });
   }
 }
 
@@ -35,8 +45,10 @@ const submit = async () => {
      <form @submit.prevent="submit">
        <div class="mt-12 flex flex-col gap-6">
          <div class="flex flex-col gap-1 ">
-           <label for="" class="text-white ml-1 text-sm block">Email Address</label>
+
+           <label :class="'text-white ml-1 text-sm block'">Email Address</label>
            <input v-model="email" placeholder="your_wonderful@email.com"  type="email" class="rounded-md bg-[#27272A] border border-[#3F3F46] block p-2 font-thin   text-white w-full"/>
+
          </div>
          <div class="flex flex-col gap-1 ">
            <label for="" class="text-white ml-1 text-sm block">Password</label>
