@@ -4,8 +4,7 @@ import {$fetch} from "ofetch";
 
 const email = ref('');
 const password = ref('');
-const submited = ref(false);
-const isValidated = ref(false);
+
 
 const submit = async () => {
   try {
@@ -39,7 +38,7 @@ const submit = async () => {
    <Logo class="size-[120px]" />
       <div class="flex flex-col gap-1">
         <b class="text-xl">Sign up for a free account</b>
-        <span class="lg:text-md text-sm opacity-70">Already registered? <span class="font-bold underline text-[#D8B4FE]">Log in</span> to your account</span>
+        <span class="lg:text-md text-sm opacity-70">Already registered? <nuxt-link to="/login" class="font-bold underline text-[#D8B4FE]">Log in</nuxt-link> to your account</span>
       </div>
 <!--     inputs -->
      <form @submit.prevent="submit">

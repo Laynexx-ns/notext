@@ -14,7 +14,9 @@ export default defineNuxtRouteMiddleware(async (event) =>{
 
 
     try {
-        await $verifyJwtToken(jwt.value, process.env.JWT_SECRET);
+        const validated = await $verifyJwtToken(jwt.value, process.env.JWT_SECRET);
+        console.log(validated);
+        if (!validated) navigateTo('/register');
     } catch(err){
         console.log(err)
         return navigateTo('/register');
