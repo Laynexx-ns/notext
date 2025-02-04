@@ -1,5 +1,3 @@
-
-
 export default defineNuxtRouteMiddleware(async (event) =>{
     if (process.client) return
 
@@ -10,8 +8,6 @@ export default defineNuxtRouteMiddleware(async (event) =>{
     if (!jwt.value){
         return navigateTo('/register');
     }
-
-
 
     try {
         const validated = await $verifyJwtToken(jwt.value, process.env.JWT_SECRET);
