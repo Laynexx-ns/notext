@@ -32,6 +32,7 @@ export default defineEventHandler(async (event)=>{
             data:{
                 email: body.email,
                 password: passwordHash,
+                username: body.username,
                 salt: salt
             },
         })

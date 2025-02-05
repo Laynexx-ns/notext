@@ -6,6 +6,12 @@ export default defineNuxtConfig({
   modules: ["@prisma/nuxt"],
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
+  plugins: [
+    { src: '~/plugins/pinia.ts', mode: 'client' }
+  ],
+  buildModules: [
+    '@pinia/nuxt',
+  ],
   postcss: {
     plugins: {
       tailwindcss: {},

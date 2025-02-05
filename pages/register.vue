@@ -4,6 +4,7 @@ import {$fetch} from "ofetch";
 
 const email = ref('');
 const password = ref('');
+const username = ref('');
 
 
 const submit = async () => {
@@ -13,9 +14,10 @@ const submit = async () => {
       body: {
         email: email.value,
         password: password.value,
+        username: username.value,
       },
     });
-
+    localStorage.setItem('username', username);
     navigateTo('/')
 
   } catch (err) {
@@ -43,6 +45,12 @@ const submit = async () => {
 <!--     inputs -->
      <form @submit.prevent="submit">
        <div class="mt-12 flex flex-col gap-6">
+         <div class="flex flex-col gap-1 ">
+
+           <label :class="'text-white ml-1 text-sm block'">Username</label>
+           <input v-model="username" placeholder="laynexx"  type="text" class="rounded-md bg-[#27272A] border border-[#3F3F46] block p-2 font-thin   text-white w-full"/>
+
+         </div>
          <div class="flex flex-col gap-1 ">
 
            <label :class="'text-white ml-1 text-sm block'">Email Address</label>

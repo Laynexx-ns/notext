@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs';
 import validator from 'validator';
 import jwt from 'jsonwebtoken';
 
+
 export default defineEventHandler(async (event)=>{
     try{
         const body = await readBody(event);
@@ -43,7 +44,7 @@ export default defineEventHandler(async (event)=>{
         const token = jwt.sign({id: user.id} , process.env.JWT_SECRET)
         setCookie(event, 'notextJWT', token)
 
-        return {data: 'ok'};
+        return { data: 'ok', username: user.username };
 
     } catch(err){
 
@@ -53,5 +54,3 @@ export default defineEventHandler(async (event)=>{
 
 
 })
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzksImlhdCI6MTczODY5MzIzMn0.CUKsT6vURR-GOZSXKZlG5-u2d1oocd5Pc4wToLsENBI
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NzksImlhdCI6MTczODY5MzM0NX0.m-gmZ2lFSzPYE3F32LC1GUzwEXI52bgzC4LdutJShjc

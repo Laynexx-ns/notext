@@ -15,8 +15,10 @@ const submit = async () => {
         password: password.value,
       },
     });
-
-    navigateTo('/')
+    if (resp.data === 'ok') {
+      localStorage.setItem('activeNote', resp.username);
+      navigateTo('/');
+    }
 
   } catch (err) {
     console.log(err.response);
