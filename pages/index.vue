@@ -118,17 +118,17 @@ async function updateNotesData(){
     <div class="flex-1 bg-black flex flex-col p-4 h-screen">
       <div class="flex justify-between items-center py-4 px-8 h-16 border-b border-white/10">
         <div >
-          <button @click="createNote(updateNotesData)" class="flex flex-row items-center gap-4">
+          <button @click="createNote(updateNotesData)" class="flex flex-row w-full h-[40px] items-center gap-4">
             <Create class="fill-white" />
             <span>Create Note</span>
           </button>
 
         </div>
-        <button @click="() => {deleteNote(activeNote.id, updateNotesData)}"><Trash /></button>
+        <button class="flex items-center justify-center size-16"  @click="() => { deleteNote(activeNote.id, updateNotesData); setActiveNote(notes[activeNote.id-1]);}"><Trash /></button>
 
       </div>
       <div class="flex-1 overflow-y-auto py-16 px-24 flex justify-center items-center -translate-y-10 gap-8">
-        <MainText v-if="activeNote" :title="activeNote.title" :text="activeNote.text" />
+        <MainText v-if="activeNote" :title="activeNote.title" :text="activeNote.text" :updateNotesData="updateNotesData" :id="activeNote.id" />
       </div>
       <div class="border-white/10 w-full text-white/60 pt-4 border-t flex justify-between items-center relative">
         <span>{{ activeNote ? new Date(activeNote.createdAt).toLocaleDateString() : '' }}</span>

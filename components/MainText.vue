@@ -1,13 +1,11 @@
   <template>
     <div class="flex flex-col gap-4 w-full">
-      <!-- Title input -->
       <input
           class="text-3xl font-semibold bg-transparent border-b border-white/20 focus:border-white outline-none text-white px-2 w-full transition duration-200"
           placeholder="Untitled"
           v-model="title"
       />
 
-      <!-- Expanding Textarea -->
       <textarea
           ref="textArea"
           class="bg-transparent text-white text-lg leading-6 px-2 w-full resize-none outline-none overflow-hidden"
@@ -40,11 +38,38 @@
 
   <script setup lang="ts">
   import { ref, onMounted } from 'vue';
+  import {updateNote} from "~/pages/functions/update-note";
+
 
   const props = defineProps({
     title: String,
     text: String,
+    id: Number,
+    updateNotesData: Function,
   });
+
+
+  let intervalId: number | null = null;
+
+  onMounted(() => {
+    intervalId = setInterval(() => {
+      updateNote(props.id, title.value, text.value, props.updateNotesData);
+    }, 1000);
+  });
+
+  onUnmounted(() => {
+    if (intervalId !== null) {
+      clearInterval(intervalId);
+    }
+  });
+
+  watch(() => props.title, (newVal) => {
+    title.value = newVal || '';
+  });
+  watch(() => props.text, (newVal) => {
+    text.value = newVal || '';
+  });
+
 
 
   const title = ref(props.title || '');
