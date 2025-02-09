@@ -49,27 +49,12 @@
   });
 
 
-  let intervalId: number | null = null;
-
-  onMounted(() => {
-    intervalId = setInterval(() => {
-      updateNote(props.id, title.value, text.value, props.updateNotesData);
-    }, 1000);
-  });
-
-  onUnmounted(() => {
-    if (intervalId !== null) {
-      clearInterval(intervalId);
-    }
-  });
-
   watch(() => props.title, (newVal) => {
     title.value = newVal || '';
   });
   watch(() => props.text, (newVal) => {
     text.value = newVal || '';
   });
-
 
 
   const title = ref(props.title || '');
@@ -82,6 +67,14 @@
       textArea.value.style.height = `${textArea.value.scrollHeight}px`;
     }
   };
+
+  watch(title,async () => {
+    await updateNote(props.id, title.value, text.value, props.updateNotesData);
+  });
+
+  watch(text,async () => {
+    await updateNote(props.id, title.value, text.value, props.updateNotesData);
+  });
 
   onMounted(() => {
     adjustHeight();

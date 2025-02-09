@@ -89,7 +89,7 @@ async function updateNotesData(){
           />
         </div>
         <div class="flex flex-col gap-4">
-          <h3 class="text-bold mb-4 opacity-70">Today</h3>
+          <h3 class="text-bold mb-4 opacity-70">Yesterday</h3>
           <ListCard
               v-for="(note, index) in yesterdayNotes"
               :key="note.id"
@@ -101,7 +101,7 @@ async function updateNotesData(){
           />
         </div>
         <div class="flex flex-col gap-4">
-          <h3 class="text-bold mb-4 opacity-70">Today</h3>
+          <h3 class="text-bold mb-4 opacity-70">Other</h3>
           <ListCard
               v-for="(note, index) in otherNotes"
               :key="note.id"
